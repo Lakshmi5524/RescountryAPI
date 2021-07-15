@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+   
+</head> 
+<body>
+    
+    <div id="Container">
+    
+    </div>
+
+
+    <script>
+
+    document.body.style.backgroundColor = "#f88379"
+    // container
+
+
+    var div=document.getElementById("Container")
+    div.style.alignItems="cenetr"
+    div.setAttribute("class", "Container");
+    div.style.padding="4%"
+
+  
+//    var  h1=document.createElement("h1")
+//    h1.innerText="Restcounties API Data"
+//    var div=document.createElement("div")
+//    div.appendChild(h1);
+//    h1.style.textAlign = "center"
+//    h1.style.fontWeight = "bold"
+//    h1.style.color="blue"
+//    h1.style.fontSize="40px"
+//    document.body.appendChild(div);
+
+
+
+    var h1 = document.createElement("h1");
+    h1.innerText = "Restcounties API Data"
+    h1.style.fontWeight = "bold"
+    h1.style.textAlign = "center"
+    div.appendChild(h1);
+
+   // input
+
+   var textField=document.createElement("input")
+   div.appendChild(textField);
+   textField.setAttribute("placeholder","Search For Country Here !!!")
+   textField.setAttribute("class","Container")
+   textField.setAttribute("id","myinput")
+   textField.style.width="400px";
+   textField.style.height="60px"
+   textField.style.margin = "10px"
+   textField.style.marginLeft = "400px"
+   textField.style.padding="5px"
+   
+//    button
+
+  var searchButton = document.createElement("button");
+    var div = document.getElementById("Container");
+    div.appendChild(searchButton);
+    searchButton.style.width = "120px"
+    searchButton.style.height = "70px"
+    searchButton.style.padding="10px"
+    searchButton.innerText = "Get the Country "
+    searchButton.setAttribute("class", " btn btn-outline-success rounded");
+    searchButton.setAttribute("onclick", "handleClick()")
+
+
+  function handleClick(){
+     var value= document.getElementById("myinput").value
+     if(value=="" || null){
+         alert("please Enter the Country Name")
+     }
+     else{
+         value 
+     }
+    
+ 
+
+
+   var url = `https://restcountries.eu/rest/v2/name/${value}?fullText=true`
+   var data= fetch(url)
+
+   data
+   .then(function(res){
+       return res.json();
+   })
+
+   .then(function(resdata){
+        //row for the details display
+
+        var row= document.createElement("div")
+        row.setAttribute("class", "row");
+        div.appendChild(row);
+
+
+        //div for the flag
+        
+        var div2=document.createElement("div")
+        div2.setAttribute("class","Container2")
+        div2.setAttribute("id", "Container2")
+        div.appendChild(div2)
+        
+       // For Loops
+
+    for(var i=0;i<resdata.length;i++){
+
+       
+
+
+        var img = document.createElement("img");
+        div2.append(img)
+        img.setAttribute = ("id", "flag")
+        img.setAttribute = ("class", "container3")
+        img.src = resdata[i].flag;
+        img.style.marginTop = "60px"
+        img.style.marginBottom = "60px"
+        img.style.display = "block"
+        img.style.marginLeft = "auto"
+        img.style.marginRight = "auto"
+        img.style.width = "350px"
+        img.style.height = "250px"
+
+
+        // Country Name
+
+        var h1=document.createElement("h5")
+        h1.innerText=("Country Name:"+ resdata[i].name)
+        h1.setAttribute("class","country_name")
+        h1.style.textAlign="center"
+        document.getElementById("Container2").appendChild(h1)
+
+        //region
+
+       var subregion = document.createElement("h5");
+       subregion.innerText = ("Sub-Region : " + resdata[i].subregion)
+       subregion.style.textAlign = "center"
+       document.getElementById("Container2").appendChild(subregion);
+       
+       // Lat-lng
+
+       var latlng = document.createElement("h5");
+       latlng.innerText = ("Latitude and Longitude : " + resdata[i].latlng)
+       latlng.style.textAlign = "center"
+       document.getElementById("Container2").appendChild(latlng);
+
+       // currencies
+
+       var currencies = document.createElement("h5");
+       currencies.innerText = ("Currency : " + resdata[i].currencies[0].symbol)
+       currencies.style.textAlign = "center"
+       document.getElementById("Container2").appendChild(currencies);
+
+        // population
+
+       var population = document.createElement("h5");
+       population.innerText = ("Population : " + resdata[i].population)
+       population.style.textAlign = "center"
+       document.getElementById("Container2").appendChild(population)
+
+     }
+
+   })
+
+   .catch(function (err) {
+           console.log(err)
+       })
+
+}
+
+</script>
+
+
+</body>
+</html>
